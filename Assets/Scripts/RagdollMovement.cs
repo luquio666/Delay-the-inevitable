@@ -79,7 +79,7 @@ public class RagdollMovement : MonoBehaviour
         Vector3 position = _hips.Rigidbody.transform.position;
         position.y -= _hips.Rigidbody.transform.localPosition.y;
         PositionMarker.position = position;
-        PositionMarker.localRotation = Quaternion.LookRotation(_currentDirection);
+        PositionMarker.rotation = Quaternion.LookRotation(_currentDirection);
     }
     
     private void OnRagdollCollisionEnter(Collision collision)
