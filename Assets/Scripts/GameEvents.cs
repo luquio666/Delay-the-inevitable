@@ -51,4 +51,16 @@ public static class GameEvents {
     {
         OnShowGameoverScreen?.Invoke();
     }
+
+    public static Action<string> OnLockDoor;
+    public static void LockDoor(string target)
+    {
+        OnLockDoor?.Invoke(target);
+    }
+
+    public static Action<string> OnUnlockDoor;
+    public static void UnlockDoor(string target)
+    {
+        OnUnlockDoor?.Invoke(target);
+    }
 }

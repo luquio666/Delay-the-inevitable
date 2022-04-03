@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GameEvents.SendUIMessage("I need to make pee!!!!!!", UIMessageMode.BABY_SPEAKING);
+        GameEvents.SendHintsMsg("I need to make pee!!!!!!");
         GameEvents.LockDoor("ParentsRoom");
         GetNextGameRequirement();
     }

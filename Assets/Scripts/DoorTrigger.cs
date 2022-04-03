@@ -22,6 +22,35 @@ public class DoorTrigger : MonoBehaviour
 
     bool _actionAlreadyTriggered;
     bool _buttonAlreadyPressed;
+    bool _doorLocked;
+
+    private void OnEnable()
+    {
+        GameEvents.OnLockDoor += LockDoor;
+        GameEvents.OnUnlockDoor += UnlockDoor;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnLockDoor -= LockDoor;
+        GameEvents.OnUnlockDoor -= UnlockDoor;
+    }
+
+    private void LockDoor(string targetId)
+    {
+        if (targetId == Id)
+        {
+            _doorLocked = true;
+        }
+    }
+
+    private void UnlockDoor(string targetId)
+    {
+        if (targetId == Id)
+        {
+            _doorLocked = false;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -42,6 +71,8 @@ public class DoorTrigger : MonoBehaviour
 
     private void TriggerActionsInternal(DoorTriggerActions action)
     {
+        if (_doorLocked)
+            return;
         _actionAlreadyTriggered = true;
         switch (action)
         {
