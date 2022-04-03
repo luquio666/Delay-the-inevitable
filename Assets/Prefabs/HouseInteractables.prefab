@@ -48,9 +48,69 @@ Transform:
   - {fileID: 4012753559255813339}
   - {fileID: 6950121629475039281}
   - {fileID: 8027906278401483469}
+  - {fileID: 6844221451630475609}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7385374323509988236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6844221451630475609}
+  - component: {fileID: 8910023517272554353}
+  - component: {fileID: 1984469656250664343}
+  m_Layer: 0
+  m_Name: Baby'sToiletAreaTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6844221451630475609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385374323509988236}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.602102, y: 0.615, z: -2.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4012753559195608215}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8910023517272554353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385374323509988236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d601ab226c2cb1944b01079e92037574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: Baby'sToilet
+  AreaAction: 0
+--- !u!65 &1984469656250664343
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385374323509988236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1440933, y: 1, z: 1}
+  m_Center: {x: -0.5763726, y: 0, z: 0}
 --- !u!1001 &1294164145992171424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -624,6 +684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6590829967202151427, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: Id
+      value: Baby'sRoom
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
 --- !u!4 &1128329470526000984 stripped
@@ -685,6 +749,10 @@ PrefabInstance:
     - target: {fileID: 4774020373140317158, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
       propertyPath: m_Name
       value: Door (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590829967202151427, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: Id
+      value: ParentsRoom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
@@ -1159,6 +1227,10 @@ PrefabInstance:
     - target: {fileID: 4774020373140317158, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
       propertyPath: m_Name
       value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590829967202151427, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: Id
+      value: Bathroom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}

@@ -13,10 +13,9 @@ public enum DoorTriggerActions
 
 public class DoorTrigger : MonoBehaviour
 {
-    public static Action<DoorTriggerActions> OnDoorTriggerAction;
+    public static Action<DoorTriggerActions, string> OnDoorTriggerAction;
 
     public string Id;
-    public string PlayerTag = "Player";
     public DoorTriggerActions DoorAction;
     public Animator DoorAnimation;
     public string DoorAnimName;
@@ -26,7 +25,7 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == PlayerTag && !_actionAlreadyTriggered)
+        if (other.CompareTag(GameConstants.PLAYER_TAG) && !_actionAlreadyTriggered)
         {
             TriggerActions();
         }
@@ -65,7 +64,7 @@ public class DoorTrigger : MonoBehaviour
             default:
                 break;
         }
-        OnDoorTriggerAction?.Invoke(action);
+        OnDoorTriggerAction?.Invoke(action, Id);
     }
 
     private void Update()
