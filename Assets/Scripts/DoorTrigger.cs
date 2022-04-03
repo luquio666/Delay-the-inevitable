@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,9 @@ public enum DoorTriggerActions
 
 public class DoorTrigger : MonoBehaviour
 {
+    public static Action<DoorTriggerActions> OnDoorTriggerAction;
+
+    public string Id;
     public string PlayerTag = "Player";
     public DoorTriggerActions DoorAction;
     public Animator DoorAnimation;
@@ -38,8 +42,13 @@ public class DoorTrigger : MonoBehaviour
 
     private void TriggerActions()
     {
+        TriggerActionsInternal(DoorAction);
+    }
+
+    private void TriggerActionsInternal(DoorTriggerActions action)
+    {
         _actionAlreadyTriggered = true;
-        switch (DoorAction)
+        switch (action)
         {
             case DoorTriggerActions.NOTHING:
                 break;
@@ -56,13 +65,14 @@ public class DoorTrigger : MonoBehaviour
             default:
                 break;
         }
+        OnDoorTriggerAction?.Invoke(action);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F) && !_buttonAlreadyPressed)
         {
-            DoorAnimation.Play(DoorAnimName, 0, 0f);
+            TriggerActionsInternal(DoorTriggerActions.CLOSE_DOOR);
         }
     }
 }
