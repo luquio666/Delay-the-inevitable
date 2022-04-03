@@ -103,9 +103,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            _currentGameRequirement = null;
-            Debug.Log("You Won!!!!".Color(Color.green));
+            YouWon();
         }
+    }
+
+    private void YouWon()
+    {
+        _currentGameRequirement = null;
+        PeeMeter.Stop();
+        Debug.Log("You Won!!!!".Color(Color.green));
     }
 
     private void OnGameOver()

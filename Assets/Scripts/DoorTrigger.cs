@@ -99,7 +99,7 @@ public class DoorTrigger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && !_buttonAlreadyPressed && DoorTriggerActions.PRESS_F_TO_OPEN == DoorAction)
         {
             _buttonAlreadyPressed = true;
-            TriggerActionsInternal(DoorTriggerActions.CLOSE_DOOR);
+            TriggerActionsInternal(DoorTriggerActions.OPEN_DOOR);
         }
     }
 

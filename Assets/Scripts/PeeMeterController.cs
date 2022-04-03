@@ -41,7 +41,12 @@ public class PeeMeterController
         if (_currentValue >= 1)
         {
             GameEvents.GameOver();
-            this._initialized = false;
+            Stop();
         }
+    }
+
+    public void Stop()
+    {
+        this._initialized = false;
     }
 }
