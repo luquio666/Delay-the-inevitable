@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8380314217294729059
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3075189724810386938, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 33eb5926fdd347043bc550ffbdd554ba, type: 2}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.386
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.372
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042134282154602594, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774020373140317158, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_Name
+      value: Door (parentsroom)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590829967202151427, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: Id
+      value: ParentsRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590829967202151427, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: DoorAction
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590829967202151427, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: DoorAnimName
+      value: DoorF2OpenAnim
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590829967202151427, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: DoorAnimation
+      value: 
+      objectReference: {fileID: 6836921234979230361}
+    - target: {fileID: 6995831625054301851, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995831625054301851, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995831625054301851, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+      propertyPath: m_Size.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+--- !u!95 &6836921234979230361 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3075189724810386938, guid: 2b7b62c3b69e9d04c9b00259cab3efd3, type: 3}
+  m_PrefabInstance: {fileID: 8380314217294729059}
+  m_PrefabAsset: {fileID: 0}
