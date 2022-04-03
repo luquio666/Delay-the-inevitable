@@ -17,40 +17,38 @@ public class DoorTrigger : MonoBehaviour
 
     public string Id;
     public DoorTriggerActions DoorAction;
-    public bool Locked;
     public Animator DoorAnimation;
     public string DoorAnimName;
 
     bool _actionAlreadyTriggered;
     bool _buttonAlreadyPressed;
+    bool _doorLocked;
 
     private void OnEnable()
     {
-        GameEvents.OnDoorUnlocked += OnDoorUnlocked;
-        GameEvents.OnDoorLocked += OnDoorLocked;
+        GameEvents.OnLockDoor += LockDoor;
+        GameEvents.OnUnlockDoor += UnlockDoor;
     }
 
     private void OnDisable()
     {
-        GameEvents.OnDoorUnlocked -= OnDoorUnlocked;
-        GameEvents.OnDoorLocked -= OnDoorLocked;
+        GameEvents.OnLockDoor -= LockDoor;
+        GameEvents.OnUnlockDoor -= UnlockDoor;
     }
 
-    private void OnDoorUnlocked(string id)
+    private void LockDoor(string targetId)
     {
-        if (id == Id)
+        if (targetId == Id)
         {
-            Locked = false;
-            Debug.Log($"{id} door unlocked!".Color(Color.yellow));
+            _doorLocked = true;
         }
     }
-    
-    private void OnDoorLocked(string id)
+
+    private void UnlockDoor(string targetId)
     {
-        if (id == Id)
+        if (targetId == Id)
         {
-            Locked = true;
-            Debug.Log($"{id} door locked!".Color(Color.yellow));
+            _doorLocked = false;
         }
     }
 
@@ -64,10 +62,6 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (DoorAction == DoorTriggerActions.PRESS_F_TO_OPEN)
-        {
-            GameEvents.ClearUIMessages();
-        }
     }
 
     private void TriggerActions()
@@ -77,35 +71,42 @@ public class DoorTrigger : MonoBehaviour
 
     private void TriggerActionsInternal(DoorTriggerActions action)
     {
+        if (_doorLocked)
+            return;
         _actionAlreadyTriggered = true;
         switch (action)
         {
             case DoorTriggerActions.NOTHING:
                 break;
             case DoorTriggerActions.OPEN_DOOR:
-                if (!Locked)
-                    DoorAnimation.Play(DoorAnimName, 0, 0f);
+                DoorAnimation.Play(DoorAnimName, 0, 0f);
                 break;
             case DoorTriggerActions.CLOSE_DOOR:
                 DoorAnimation.Play(DoorAnimName, 0, 0f);
                 break;
             case DoorTriggerActions.PRESS_F_TO_OPEN:
-                if (!_buttonAlreadyPressed && !Locked)
-                    GameEvents.SendUIMessage("Press F to open.", UIMessageMode.TOOLTIP);
+                if(!_buttonAlreadyPressed)
+                    StartCoroutine(HideHeadBubbleCo());
                 break;
             default:
                 break;
         }
-
         OnDoorTriggerAction?.Invoke(action, Id);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !_buttonAlreadyPressed && !Locked && DoorTriggerActions.PRESS_F_TO_OPEN == DoorAction)
+        if (Input.GetKeyDown(KeyCode.F) && !_buttonAlreadyPressed && DoorTriggerActions.PRESS_F_TO_OPEN == DoorAction)
         {
             _buttonAlreadyPressed = true;
-            TriggerActionsInternal(DoorTriggerActions.OPEN_DOOR);
+            TriggerActionsInternal(DoorTriggerActions.CLOSE_DOOR);
         }
+    }
+
+    private IEnumerator HideHeadBubbleCo()
+    {
+        GameEvents.SendHeadBubbleMsg("Press to Open");
+        yield return new WaitForSeconds(3f);
+        GameEvents.ClearHeadBubbleMsg();
     }
 }

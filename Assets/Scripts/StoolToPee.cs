@@ -53,7 +53,7 @@ public class StoolToPee : MonoBehaviour
     {
         _isPickedUp = true;
         _player.Grab(_rigidbody);
-        GameEvents.ClearUIMessages();
+        GameEvents.ClearHeadBubbleMsg();
         OnStoolInteraction?.Invoke(StoolToPeeActions.PICK_UP);
     }
     
@@ -80,12 +80,12 @@ public class StoolToPee : MonoBehaviour
         if (!_isInside && Vector3.Distance(_rigidbody.transform.position, GameManager.Instance.PlayerPosition) < TriggerRange)
         {
             _isInside = true;
-            GameEvents.SendUIMessage("Press F to pick up.", UIMessageMode.TOOLTIP);
+            GameEvents.SendHeadBubbleMsg("Press to pick");
         }
         else if (_isInside && Vector3.Distance(_rigidbody.transform.position, GameManager.Instance.PlayerPosition) > TriggerRange)
         {
             _isInside = false;
-            GameEvents.ClearUIMessages();
+            GameEvents.ClearHeadBubbleMsg();
         }
     }
 }

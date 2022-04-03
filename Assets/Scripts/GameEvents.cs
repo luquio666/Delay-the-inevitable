@@ -2,11 +2,6 @@
 using System.Collections;
 using System;
 
-public enum UIMessageMode
-{
-    TOOLTIP,
-    BABY_SPEAKING
-}
 public static class GameEvents {
 
     public static Action<string, bool> OnPlaySound;
@@ -27,28 +22,46 @@ public static class GameEvents {
         OnChangeObjectState?.Invoke(id);
     }
 
-    public static Action<string> OnSendUIMessage;
-    public static void SendUIMessage(string msg, UIMessageMode mode)
+    public static Action<string> OnSendHintsMsg;
+    public static void SendHintsMsg(string msg)
     {
-        OnSendUIMessage?.Invoke(msg);
+        OnSendHintsMsg?.Invoke(msg);
     }
 
-    public static Action OnClearUIMessages;
-    public static void ClearUIMessages()
+    public static Action OnClearHintsMsg;
+    public static void ClearHintsMsg()
     {
-        OnClearUIMessages?.Invoke();
+        OnClearHintsMsg?.Invoke();
     }
 
-    public static Action<string> OnDoorUnlocked;
-    public static void UnlockDoor(string id)
+    public static Action<string> OnSendHeadBubbleMsg;
+    public static void SendHeadBubbleMsg(string msg)
     {
-        OnDoorUnlocked?.Invoke(id);
+        OnSendHeadBubbleMsg?.Invoke(msg);
     }
-    
-    public static Action<string> OnDoorLocked;
-    public static void LockDoor(string id)
+
+    public static Action OnClearHeadBubbleMsg;
+    public static void ClearHeadBubbleMsg()
     {
-        OnDoorLocked?.Invoke(id);
+        OnClearHeadBubbleMsg?.Invoke();
+    }
+
+    public static Action OnShowGameoverScreen;
+    public static void ShowGameoverScreen()
+    {
+        OnShowGameoverScreen?.Invoke();
+    }
+
+    public static Action<string> OnLockDoor;
+    public static void LockDoor(string target)
+    {
+        OnLockDoor?.Invoke(target);
+    }
+
+    public static Action<string> OnUnlockDoor;
+    public static void UnlockDoor(string target)
+    {
+        OnUnlockDoor?.Invoke(target);
     }
     
     public static Action OnGameOver;
