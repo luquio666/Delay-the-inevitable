@@ -153,6 +153,10 @@ PrefabInstance:
       propertyPath: Locked
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 950367190135774073, guid: 4b159a94d0c5723409be9fe69faf34c5, type: 3}
+      propertyPath: DoorAction
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1443279709154464924, guid: 4b159a94d0c5723409be9fe69faf34c5, type: 3}
       propertyPath: m_Name
       value: False Door 2
@@ -238,6 +242,10 @@ PrefabInstance:
     - target: {fileID: 950367190135774073, guid: 4b159a94d0c5723409be9fe69faf34c5, type: 3}
       propertyPath: Locked
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 950367190135774073, guid: 4b159a94d0c5723409be9fe69faf34c5, type: 3}
+      propertyPath: DoorAction
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1443279709154464924, guid: 4b159a94d0c5723409be9fe69faf34c5, type: 3}
       propertyPath: m_Name
