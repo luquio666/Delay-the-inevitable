@@ -32,7 +32,7 @@ public static class ConfigurableJointExtensions
 		var right = joint.axis;
 		var forward = Vector3.Cross (joint.axis, joint.secondaryAxis).normalized;
 		var up = Vector3.Cross (forward, right).normalized;
-		Quaternion worldToJointSpace = Quaternion.LookRotation (forward, up);
+		Quaternion worldToJointSpace = forward.magnitude > 0 ? Quaternion.LookRotation (forward, up) : Quaternion.identity;
 		
 		// Transform into world space
 		Quaternion resultRotation = Quaternion.Inverse (worldToJointSpace);
