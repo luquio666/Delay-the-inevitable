@@ -1128,8 +1128,8 @@ MonoBehaviour:
   GameoverScreen: {fileID: 3948890697887653638}
   Retry: {fileID: 4941719797627283395}
   NoWay: {fileID: 7182305288386522707}
-  HintsLabelAnim: {fileID: 0}
-  HeadBubbleLabelAnim: {fileID: 0}
+  HintsLabelAnim: {fileID: 6428165004626167376}
+  HeadBubbleLabelAnim: {fileID: 3018746549297655120}
 --- !u!1 &8813881290837028250
 GameObject:
   m_ObjectHideFlags: 0
