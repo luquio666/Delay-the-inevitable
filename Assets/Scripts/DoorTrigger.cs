@@ -33,10 +33,6 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (DoorAction == DoorTriggerActions.PRESS_F_TO_OPEN)
-        {
-            GameEvents.ClearUIMessages();
-        }
     }
 
     private void TriggerActions()
@@ -59,7 +55,7 @@ public class DoorTrigger : MonoBehaviour
                 break;
             case DoorTriggerActions.PRESS_F_TO_OPEN:
                 if(!_buttonAlreadyPressed)
-                    GameEvents.SendUIMessage("Press F to open.");
+                    StartCoroutine(HideHeadBubbleCo());
                 break;
             default:
                 break;
@@ -74,5 +70,12 @@ public class DoorTrigger : MonoBehaviour
             _buttonAlreadyPressed = true;
             TriggerActionsInternal(DoorTriggerActions.CLOSE_DOOR);
         }
+    }
+
+    private IEnumerator HideHeadBubbleCo()
+    {
+        GameEvents.SendHeadBubbleMsg("Press to Open");
+        yield return new WaitForSeconds(3f);
+        GameEvents.ClearHeadBubbleMsg();
     }
 }

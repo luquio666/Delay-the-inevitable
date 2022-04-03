@@ -22,15 +22,33 @@ public static class GameEvents {
         OnChangeObjectState?.Invoke(id);
     }
 
-    public static Action<string> OnSendUIMessage;
-    public static void SendUIMessage(string msg)
+    public static Action<string> OnSendHintsMsg;
+    public static void SendHintsMsg(string msg)
     {
-        OnSendUIMessage?.Invoke(msg);
+        OnSendHintsMsg?.Invoke(msg);
     }
 
-    public static Action OnClearUIMessages;
-    public static void ClearUIMessages()
+    public static Action OnClearHintsMsg;
+    public static void ClearHintsMsg()
     {
-        OnClearUIMessages?.Invoke();
+        OnClearHintsMsg?.Invoke();
+    }
+
+    public static Action<string> OnSendHeadBubbleMsg;
+    public static void SendHeadBubbleMsg(string msg)
+    {
+        OnSendHeadBubbleMsg?.Invoke(msg);
+    }
+
+    public static Action OnClearHeadBubbleMsg;
+    public static void ClearHeadBubbleMsg()
+    {
+        OnClearHeadBubbleMsg?.Invoke();
+    }
+
+    public static Action OnShowGameoverScreen;
+    public static void ShowGameoverScreen()
+    {
+        OnShowGameoverScreen?.Invoke();
     }
 }
