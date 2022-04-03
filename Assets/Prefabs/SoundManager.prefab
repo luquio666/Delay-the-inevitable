@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 7857573586034752131}
   - component: {fileID: 7857573586034752130}
   m_Layer: 0
-  m_Name: missing audio clip
+  m_Name: door opening
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,8 +90,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 02d1c5988e8f3da44b1bdfc6f8c0c55d, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 7857573586185396824}
   - component: {fileID: 7857573586185396831}
   m_Layer: 0
-  m_Name: missing audio clip
+  m_Name: hit door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -344,8 +344,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 2b0c7797ef616654b8e044a26e1d47c9, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 7857573586999236952}
   - component: {fileID: 7857573586999236959}
   m_Layer: 0
-  m_Name: missing audio clip
+  m_Name: door opening 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,8 +471,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: fdcbf12ccc2465c45b0591fd6a6ffc50, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

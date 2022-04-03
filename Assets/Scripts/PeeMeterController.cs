@@ -24,7 +24,7 @@ public class PeeMeterController
     public void Update(float deltaTime)
     {
         if (!_initialized)
-            Initialize();
+            return;
 
         HandleBarFill(deltaTime);
         if (Input.GetMouseButtonDown(0))

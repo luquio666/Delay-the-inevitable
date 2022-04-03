@@ -17,6 +17,10 @@ public class RagdollMovement : MonoBehaviour
     public float KnockingHitMagnitudeThreshold = 1f;
     public float KnockedOutDuration = 2f;
     public float GetUpDuration = 1f;
+    [Range(0f, 2f)] public float DizzinessIntensity = 1f;
+    public float DizzinessFrecuency = 1f;
+
+    public float Dizziness => _dizziness;
 
     private BodyPart _hips;
     private Vector3 _currentDirection;
@@ -24,13 +28,13 @@ public class RagdollMovement : MonoBehaviour
     private bool _isBalancing => _balanceMultiplier > 0.01f;
     private float _balanceMultiplier = 1f;
     private Tween _enableBalanceTween;
-    
+    private float _dizziness = 0f;
 
 
     private void Awake()
     {
         CollisionDetector.OnRagdollCollisionEnter += OnRagdollCollisionEnter;
-        
+
         for (int i = 0; i < BodyParts.Length; i++)
         {
             BodyParts[i].Initialize();
@@ -50,10 +54,11 @@ public class RagdollMovement : MonoBehaviour
 
     private void Update()
     {
-        if(!_isBalancing)
+        if (!_isBalancing)
         {
             return;
         }
+
         if (Input.GetKey(KeyCode.W))
         {
             _normalizedSpeed = Mathf.Min(_normalizedSpeed + 1 / AccelerationDuration * Time.deltaTime, 1f);
@@ -68,6 +73,11 @@ public class RagdollMovement : MonoBehaviour
         float horizontalAxis = 0f;
         if (Input.GetKey(KeyCode.A)) horizontalAxis -= 1f;
         if (Input.GetKey(KeyCode.D)) horizontalAxis += 1f;
+        
+        _dizziness = Mathf.PerlinNoise(Time.time * DizzinessFrecuency, 0f) - 0.5f;
+        float finalDizziness = DizzinessIntensity * _dizziness;
+        horizontalAxis += finalDizziness;
+        
         _currentDirection = Quaternion.AngleAxis(horizontalAxis * RotationSpeed * Time.deltaTime, Vector3.up) *
                             _currentDirection;
     }
@@ -84,29 +94,27 @@ public class RagdollMovement : MonoBehaviour
             _hips.Balance(UprightTorque * _balanceMultiplier, RotationTorque, _currentDirection);
             _hips.Rigidbody.velocity = _currentDirection * _normalizedSpeed * Speed;
         }
-        
+
         Vector3 position = _hips.Rigidbody.transform.position;
         position.y -= _hips.Rigidbody.transform.localPosition.y;
         PositionMarker.position = position;
         PositionMarker.rotation = Quaternion.LookRotation(_currentDirection);
     }
-    
+
     private void OnRagdollCollisionEnter(Collision collision)
     {
-        
-        if(collision.relativeVelocity.magnitude > KnockingHitMagnitudeThreshold)
+        if (collision.relativeVelocity.magnitude > KnockingHitMagnitudeThreshold)
         {
             _balanceMultiplier = 0f;
             _normalizedSpeed = 0f;
             Animator.SetFloat("Speed", _normalizedSpeed);
             _enableBalanceTween?.Kill();
             _enableBalanceTween = DOVirtual.DelayedCall(KnockedOutDuration, EnableBalancing);
-            
+
             Debug.Log(("collision magnitude: " + collision.relativeVelocity.magnitude).Color(Color.green));
         }
-
     }
-    
+
     private void EnableBalancing()
     {
         _enableBalanceTween?.Kill();
@@ -119,7 +127,7 @@ public class RagdollMovement : MonoBehaviour
         objectRigidbody.transform.position = PositionMarker.position + PositionMarker.forward * 3f + Vector3.up * 1f;
         objectRigidbody.transform.SetParent(PositionMarker);
     }
-    
+
     public void Drop(Rigidbody objectRigidbody)
     {
         objectRigidbody.isKinematic = false;

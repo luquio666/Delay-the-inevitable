@@ -17,12 +17,12 @@ public class DoorTrigger : MonoBehaviour
 
     public string Id;
     public DoorTriggerActions DoorAction;
+    public bool Locked;
     public Animator DoorAnimation;
     public string DoorAnimName;
 
-    bool _actionAlreadyTriggered;
-    bool _buttonAlreadyPressed;
-    bool _doorLocked;
+    private bool _actionAlreadyTriggered;
+    private bool _buttonAlreadyPressed;
 
     private void OnEnable()
     {
@@ -40,7 +40,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (targetId == Id)
         {
-            _doorLocked = true;
+            Locked = true;
         }
     }
 
@@ -48,7 +48,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (targetId == Id)
         {
-            _doorLocked = false;
+            Locked = false;
         }
     }
 
@@ -60,10 +60,6 @@ public class DoorTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-    }
-
     private void TriggerActions()
     {
         TriggerActionsInternal(DoorAction);
@@ -71,20 +67,26 @@ public class DoorTrigger : MonoBehaviour
 
     private void TriggerActionsInternal(DoorTriggerActions action)
     {
-        if (_doorLocked)
-            return;
         _actionAlreadyTriggered = true;
         switch (action)
         {
             case DoorTriggerActions.NOTHING:
                 break;
             case DoorTriggerActions.OPEN_DOOR:
+                if (Locked)
+                {
+                    GameEvents.PlaySound("hit door", false);
+                    break;
+                }
                 DoorAnimation.Play(DoorAnimName, 0, 0f);
+                GameEvents.PlaySound("door opening", false);
                 break;
             case DoorTriggerActions.CLOSE_DOOR:
                 DoorAnimation.Play(DoorAnimName, 0, 0f);
+                GameEvents.PlaySound("door opening 2", false);
                 break;
             case DoorTriggerActions.PRESS_F_TO_OPEN:
+                if (Locked) break;
                 if(!_buttonAlreadyPressed)
                     StartCoroutine(HideHeadBubbleCo());
                 break;
