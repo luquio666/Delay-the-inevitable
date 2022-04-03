@@ -41,7 +41,7 @@ public class ChangeObjectState : MonoBehaviour
         SecondaryStateObjects.ForEach(x => x.SetActive(false));
         NormalStateObjects.ForEach(x => x.SetActive(true));
 
-        if (string.IsNullOrEmpty(NormalStateSound))
+        if (!string.IsNullOrEmpty(NormalStateSound))
             GameEvents.PlaySound(NormalStateSound);
     }
     public void SetSecondaryState()
@@ -49,7 +49,7 @@ public class ChangeObjectState : MonoBehaviour
         NormalStateObjects.ForEach(x => x.SetActive(false));
         SecondaryStateObjects.ForEach(x => x.SetActive(true));
 
-        if (string.IsNullOrEmpty(SecondaryStateSound))
+        if (!string.IsNullOrEmpty(SecondaryStateSound))
             GameEvents.PlaySound(SecondaryStateSound);
     }
 }

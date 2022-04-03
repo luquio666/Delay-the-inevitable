@@ -24,6 +24,8 @@ public class SoundManager : MonoBehaviour {
 	private void PlaySound(string soundName, bool loop)
 	{
 		var sound = FindAudio(soundName);
+		Debug.Log("sound name: " + soundName);
+		if (sound == null) return;
 		if (sound.isPlaying)
 			sound.Stop();
 		sound.loop = loop;
