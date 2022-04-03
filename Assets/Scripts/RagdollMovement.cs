@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class RagdollMovement : MonoBehaviour
@@ -14,12 +15,16 @@ public class RagdollMovement : MonoBehaviour
     public float Speed = 2f;
     public float RotationSpeed = 90;
     public float KnockingHitMagnitudeThreshold = 1f;
-    public float KnockedOutTime = 2f;
+    public float KnockedOutDuration = 2f;
+    public float GetUpDuration = 1f;
 
     private BodyPart _hips;
     private Vector3 _currentDirection;
     private float _normalizedSpeed;
-    private bool _isBalancing = true;
+    private bool _isBalancing => _balanceMultiplier > 0.01f;
+    private float _balanceMultiplier = 1f;
+    private Tween _enableBalanceTween;
+    
 
 
     private void Awake()
@@ -35,7 +40,7 @@ public class RagdollMovement : MonoBehaviour
             }
         }
 
-        _currentDirection = Vector3.forward;
+        _currentDirection = this.transform.forward;
     }
 
     private void OnDestroy()
@@ -45,6 +50,10 @@ public class RagdollMovement : MonoBehaviour
 
     private void Update()
     {
+        if(!_isBalancing)
+        {
+            return;
+        }
         if (Input.GetKey(KeyCode.W))
         {
             _normalizedSpeed = Mathf.Min(_normalizedSpeed + 1 / AccelerationDuration * Time.deltaTime, 1f);
@@ -72,7 +81,7 @@ public class RagdollMovement : MonoBehaviour
 
         if (_isBalancing)
         {
-            _hips.Balance(UprightTorque, RotationTorque, _currentDirection);
+            _hips.Balance(UprightTorque * _balanceMultiplier, RotationTorque, _currentDirection);
             _hips.Rigidbody.velocity = _currentDirection * _normalizedSpeed * Speed;
         }
         
@@ -84,19 +93,24 @@ public class RagdollMovement : MonoBehaviour
     
     private void OnRagdollCollisionEnter(Collision collision)
     {
-        Debug.Log("collision magnitude: " + collision.relativeVelocity.magnitude);
+        
         if(collision.relativeVelocity.magnitude > KnockingHitMagnitudeThreshold)
         {
-            _isBalancing = false;
-            CancelInvoke();
-            Invoke("EnableBalancing", KnockedOutTime);
+            _balanceMultiplier = 0f;
+            _normalizedSpeed = 0f;
+            Animator.SetFloat("Speed", _normalizedSpeed);
+            _enableBalanceTween?.Kill();
+            _enableBalanceTween = DOVirtual.DelayedCall(KnockedOutDuration, EnableBalancing);
+            
+            Debug.Log(("collision magnitude: " + collision.relativeVelocity.magnitude).Color(Color.green));
         }
-        
+
     }
     
     private void EnableBalancing()
     {
-        _isBalancing = true;
+        _enableBalanceTween?.Kill();
+        _enableBalanceTween = DOTween.To(() => _balanceMultiplier, x => _balanceMultiplier = x, 1f, GetUpDuration);
     }
 
     private void OnDrawGizmos()
