@@ -17,11 +17,42 @@ public class DoorTrigger : MonoBehaviour
 
     public string Id;
     public DoorTriggerActions DoorAction;
+    public bool Locked;
     public Animator DoorAnimation;
     public string DoorAnimName;
 
     bool _actionAlreadyTriggered;
     bool _buttonAlreadyPressed;
+
+    private void OnEnable()
+    {
+        GameEvents.OnDoorUnlocked += OnDoorUnlocked;
+        GameEvents.OnDoorLocked += OnDoorLocked;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnDoorUnlocked -= OnDoorUnlocked;
+        GameEvents.OnDoorLocked -= OnDoorLocked;
+    }
+
+    private void OnDoorUnlocked(string id)
+    {
+        if (id == Id)
+        {
+            Locked = false;
+            Debug.Log($"{id} door unlocked!".Color(Color.yellow));
+        }
+    }
+    
+    private void OnDoorLocked(string id)
+    {
+        if (id == Id)
+        {
+            Locked = true;
+            Debug.Log($"{id} door locked!".Color(Color.yellow));
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -52,27 +83,29 @@ public class DoorTrigger : MonoBehaviour
             case DoorTriggerActions.NOTHING:
                 break;
             case DoorTriggerActions.OPEN_DOOR:
-                DoorAnimation.Play(DoorAnimName, 0, 0f);
+                if (!Locked)
+                    DoorAnimation.Play(DoorAnimName, 0, 0f);
                 break;
             case DoorTriggerActions.CLOSE_DOOR:
                 DoorAnimation.Play(DoorAnimName, 0, 0f);
                 break;
             case DoorTriggerActions.PRESS_F_TO_OPEN:
-                if(!_buttonAlreadyPressed)
-                    GameEvents.SendUIMessage("Press F to open.");
+                if (!_buttonAlreadyPressed && !Locked)
+                    GameEvents.SendUIMessage("Press F to open.", UIMessageMode.TOOLTIP);
                 break;
             default:
                 break;
         }
+
         OnDoorTriggerAction?.Invoke(action, Id);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !_buttonAlreadyPressed && DoorTriggerActions.PRESS_F_TO_OPEN == DoorAction)
+        if (Input.GetKeyDown(KeyCode.F) && !_buttonAlreadyPressed && !Locked && DoorTriggerActions.PRESS_F_TO_OPEN == DoorAction)
         {
             _buttonAlreadyPressed = true;
-            TriggerActionsInternal(DoorTriggerActions.CLOSE_DOOR);
+            TriggerActionsInternal(DoorTriggerActions.OPEN_DOOR);
         }
     }
 }

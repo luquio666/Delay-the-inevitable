@@ -2,6 +2,11 @@
 using System.Collections;
 using System;
 
+public enum UIMessageMode
+{
+    TOOLTIP,
+    BABY_SPEAKING
+}
 public static class GameEvents {
 
     public static Action<string, bool> OnPlaySound;
@@ -23,7 +28,7 @@ public static class GameEvents {
     }
 
     public static Action<string> OnSendUIMessage;
-    public static void SendUIMessage(string msg)
+    public static void SendUIMessage(string msg, UIMessageMode mode)
     {
         OnSendUIMessage?.Invoke(msg);
     }
@@ -33,4 +38,17 @@ public static class GameEvents {
     {
         OnClearUIMessages?.Invoke();
     }
+
+    public static Action<string> OnDoorUnlocked;
+    public static void UnlockDoor(string id)
+    {
+        OnDoorUnlocked?.Invoke(id);
+    }
+    
+    public static Action<string> OnDoorLocked;
+    public static void LockDoor(string id)
+    {
+        OnDoorLocked?.Invoke(id);
+    }
+    
 }

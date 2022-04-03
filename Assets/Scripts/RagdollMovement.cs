@@ -113,6 +113,19 @@ public class RagdollMovement : MonoBehaviour
         _enableBalanceTween = DOTween.To(() => _balanceMultiplier, x => _balanceMultiplier = x, 1f, GetUpDuration);
     }
 
+    public void Grab(Rigidbody objectRigidbody)
+    {
+        objectRigidbody.isKinematic = true;
+        objectRigidbody.transform.position = PositionMarker.position + PositionMarker.forward * 3f + Vector3.up * 1f;
+        objectRigidbody.transform.SetParent(PositionMarker);
+    }
+    
+    public void Drop(Rigidbody objectRigidbody)
+    {
+        objectRigidbody.isKinematic = false;
+        objectRigidbody.transform.SetParent(null);
+    }
+
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
