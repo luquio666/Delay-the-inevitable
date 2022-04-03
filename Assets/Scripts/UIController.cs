@@ -21,7 +21,6 @@ public class UIController : MonoBehaviour
         Retry.onClick.AddListener(ButtonRetry);
         NoWay.onClick.AddListener(ButtonNoWay);
     }
-    
 
     private void OnEnable()
     {
@@ -29,7 +28,7 @@ public class UIController : MonoBehaviour
         GameEvents.OnSendHeadBubbleMsg += SendHeadBubbleMsg;
         GameEvents.OnClearHintsMsg += ClearHintsMsg;
         GameEvents.OnClearHeadBubbleMsg += ClearHeadBubbleMsg;
-        GameEvents.OnShowGameoverScreen += ShowGameoverScreen;
+        GameEvents.OnGameOver += GameOver;
     }
 
     private void OnDisable()
@@ -38,13 +37,19 @@ public class UIController : MonoBehaviour
         GameEvents.OnSendHeadBubbleMsg -= SendHeadBubbleMsg;
         GameEvents.OnClearHintsMsg -= ClearHintsMsg;
         GameEvents.OnClearHeadBubbleMsg -= ClearHeadBubbleMsg;
-        GameEvents.OnShowGameoverScreen -= ShowGameoverScreen;
+        GameEvents.OnGameOver -= GameOver;
+    }
+
+    private void Update()
+    {
+        PeeFill.fillAmount = GameManager.Instance.PeeMeter._currentValue;
     }
 
     private void ButtonRetry()
     { 
         // todo: restart game
     }
+
     private void ButtonNoWay()
     { 
         // todo: go to main menu
@@ -74,7 +79,7 @@ public class UIController : MonoBehaviour
             HeadBubbleLabelAnim.Play("HeadBubbleHide", 0, 0f);
     }
 
-    private void ShowGameoverScreen()
+    private void GameOver()
     {
         GameoverScreen.SetActive(true);
     }

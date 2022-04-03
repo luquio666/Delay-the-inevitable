@@ -46,12 +46,6 @@ public static class GameEvents {
         OnClearHeadBubbleMsg?.Invoke();
     }
 
-    public static Action OnShowGameoverScreen;
-    public static void ShowGameoverScreen()
-    {
-        OnShowGameoverScreen?.Invoke();
-    }
-
     public static Action<string> OnLockDoor;
     public static void LockDoor(string target)
     {
