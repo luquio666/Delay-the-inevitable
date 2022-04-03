@@ -482,42 +482,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3982018300856635264, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3982018301230684073, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3982018301386583388, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3982018301742684509, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3982018302157528435, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3982018302457750267, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3982018302504012583, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3982018302533369780, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3982018302732758267, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 4482778579098765268, guid: ec9621bc15836d24bae2afcf5b4a8401, type: 3}
       propertyPath: m_Name
       value: House
