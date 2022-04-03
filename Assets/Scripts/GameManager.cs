@@ -35,13 +35,16 @@ public class GameManager : MonoBehaviour
 
 
     public RagdollMovement Player;
+    public PeeMeterController PeeMeter;
     public Vector3 PlayerPosition => Player.PositionMarker.position;
+    private bool _gameover = false;
 
     private void OnEnable()
     {
         DoorTrigger.OnDoorTriggerAction += OnDoorTriggerAction;
         AreaTrigger.OnAreaTrigger += OnAreaTrigger;
         StoolToPee.OnStoolInteraction += OnStoolInteraction;
+        GameEvents.OnGameOver += OnGameOver;
     }
 
     private void OnDisable()
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
         DoorTrigger.OnDoorTriggerAction -= OnDoorTriggerAction;
         AreaTrigger.OnAreaTrigger -= OnAreaTrigger;
         StoolToPee.OnStoolInteraction -= OnStoolInteraction;
+        GameEvents.OnGameOver -= OnGameOver;
     }
 
     private void Start()
@@ -56,6 +60,13 @@ public class GameManager : MonoBehaviour
         GameEvents.SendHintsMsg("I need to make pee!!!!!!");
         GameEvents.LockDoor("ParentsRoom");
         GetNextGameRequirement();
+        PeeMeter.Initialize();
+        _gameover = false;
+    }
+
+    private void Update()
+    {
+        PeeMeter.Update(Time.deltaTime);
     }
 
     private void OnAreaTrigger(AreaTriggerActions areaAction, string id)
@@ -95,5 +106,12 @@ public class GameManager : MonoBehaviour
             _currentGameRequirement = null;
             Debug.Log("You Won!!!!".Color(Color.green));
         }
+    }
+
+    private void OnGameOver()
+    {
+        _currentGameRequirement = null;
+        _gameover = true;
+        Debug.Log("Game Over".Color(Color.red));
     }
 }

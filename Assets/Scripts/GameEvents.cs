@@ -63,4 +63,11 @@ public static class GameEvents {
     {
         OnUnlockDoor?.Invoke(target);
     }
+    
+    public static Action OnGameOver;
+    public static void GameOver()
+    {
+        OnGameOver?.Invoke();
+    }
+    
 }
