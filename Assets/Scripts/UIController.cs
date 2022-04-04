@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -11,25 +12,43 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI HintsLabel;
     public TextMeshProUGUI HeadBubbleLabel;
     public Image PeeFill;
+    [Space]
     public GameObject GameoverScreen;
     public Button Retry;
     public Button NoWay;
-    [Space] public Animator HintsLabelAnim;
+    [Space]
+    public GameObject GameWonScreen;
+    public Button BtnWonRetry;
+    public Button BtnWonNoWay;
+    [Space]
+    public GameObject MainMenu;
+    public Button Play;
+    public Button Exit;
+    [Space]
+    public Animator HintsLabelAnim;
     public Animator HeadBubbleLabelAnim;
 
     private void Awake()
     {
         Retry.onClick.AddListener(ButtonRetry);
         NoWay.onClick.AddListener(ButtonNoWay);
+        BtnWonRetry.onClick.AddListener(ButtonRetry);
+        BtnWonNoWay.onClick.AddListener(ButtonNoWay);
+
+        Play.onClick.AddListener(ButtonPlay);
+        Exit.onClick.AddListener(ButtonNoWay);
     }
 
     private void OnEnable()
     {
+        PauseGame();
+
         GameEvents.OnSendHintsMsg += SendHintsMsg;
         GameEvents.OnSendHeadBubbleMsg += SendHeadBubbleMsg;
         GameEvents.OnClearHintsMsg += ClearHintsMsg;
         GameEvents.OnClearHeadBubbleMsg += ClearHeadBubbleMsg;
         GameEvents.OnGameOver += GameOver;
+        GameEvents.OnGameWon += GameWon;
     }
 
     private void OnDisable()
@@ -39,6 +58,7 @@ public class UIController : MonoBehaviour
         GameEvents.OnClearHintsMsg -= ClearHintsMsg;
         GameEvents.OnClearHeadBubbleMsg -= ClearHeadBubbleMsg;
         GameEvents.OnGameOver -= GameOver;
+        GameEvents.OnGameWon -= GameWon;
     }
 
     private void Update()
@@ -46,14 +66,30 @@ public class UIController : MonoBehaviour
         PeeFill.fillAmount = GameManager.Instance.PeeMeter._currentValue;
     }
 
+    private void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    private void UnpauseGame()
+    {
+        Time.timeScale = 1f;
+    }
+
+    private void ButtonPlay()
+    {
+        MainMenu.SetActive(false);
+        UnpauseGame();
+    }
+
     private void ButtonRetry()
     {
-        // todo: restart game
+        SceneManager.LoadScene(0);
     }
 
     private void ButtonNoWay()
     {
-        // todo: go to main menu
+        Application.Quit();
     }
 
     private void SendHintsMsg(string msg)
@@ -85,5 +121,10 @@ public class UIController : MonoBehaviour
     private void GameOver()
     {
         DOVirtual.DelayedCall(3, () => GameoverScreen.SetActive(true));
+    }
+
+    private void GameWon()
+    {
+        GameWonScreen.SetActive(true);
     }
 }

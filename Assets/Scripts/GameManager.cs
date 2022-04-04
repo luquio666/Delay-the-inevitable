@@ -122,6 +122,7 @@ public class GameManager : MonoBehaviour
     {
         _currentGameRequirement = null;
         PeeMeter.Stop();
+        GameEvents.GameWon();
         Debug.Log("You Won!!!!".Color(Color.green));
     }
 
