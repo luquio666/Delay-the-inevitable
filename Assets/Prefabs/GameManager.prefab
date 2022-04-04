@@ -50,6 +50,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   PeeMeter:
     StartingFillSpeed: 0.01
-    FillAcceleration: 0.0033
+    FillAcceleration: 0.0027
     PeeHoldDelta: 0.04
     _currentValue: 0
