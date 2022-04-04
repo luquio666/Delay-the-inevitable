@@ -1,10 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public CinemachineVirtualCamera SuccessCamera;
+    public Rigidbody Stool;
+    public Transform StoolMarker;
+    public Transform BabyMarker;
+    
     private Queue<GameRequirement> _gameRequirements = new Queue<GameRequirement>(new List<GameRequirement>()
     {
         new GameRequirementDoor("Bathroom", DoorTriggerActions.CLOSE_DOOR, ()=>
@@ -72,6 +78,7 @@ public class GameManager : MonoBehaviour
         GameEvents.LockDoor("ParentsRoom");
         GetNextGameRequirement();
         PeeMeter.Initialize();
+        SuccessCamera.Priority = 0;
         _gameover = false;
     }
 
@@ -122,8 +129,22 @@ public class GameManager : MonoBehaviour
     {
         _currentGameRequirement = null;
         PeeMeter.Stop();
+        SetupWinScene();
         GameEvents.GameWon();
         Debug.Log("You Won!!!!".Color(Color.green));
+    }
+
+    private void SetupWinScene()
+    {
+        SuccessCamera.Priority = 20;
+        Stool.isKinematic = true;
+        Stool.transform.SetParent(StoolMarker);
+        Stool.transform.localPosition = Vector3.zero;
+        Stool.transform.localRotation = Quaternion.identity;
+        Player.GoToAnimatedMode();
+        Player.transform.position = BabyMarker.position;
+        Player.transform.rotation = BabyMarker.rotation;
+        Player.GetComponent<PeeParticlesController>().SetRateOverTime(100);
     }
 
     private void OnGameOver()

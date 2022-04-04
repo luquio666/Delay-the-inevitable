@@ -43,9 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c8c58b0e2cd8143befd9804a6ae9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SuccessCamera: {fileID: 0}
+  Stool: {fileID: 0}
+  StoolMarker: {fileID: 0}
+  BabyMarker: {fileID: 0}
   Player: {fileID: 0}
   PeeMeter:
     StartingFillSpeed: 0.01
-    FillAcceleration: 0.002
-    PeeHoldDelta: 0.05
+    FillAcceleration: 0.0033
+    PeeHoldDelta: 0.04
     _currentValue: 0

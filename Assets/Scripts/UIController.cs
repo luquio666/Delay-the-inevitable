@@ -125,6 +125,6 @@ public class UIController : MonoBehaviour
 
     private void GameWon()
     {
-        GameWonScreen.SetActive(true);
+        DOVirtual.DelayedCall(5, () => GameWonScreen.SetActive(true));
     }
 }

@@ -5,18 +5,21 @@ using UnityEngine;
 public class PeeParticlesController : MonoBehaviour
 {
     public ParticleSystem PeeParticles;
-    
+    public ParticleSystem PeeParticles2;
+
     public void SetRateOverTime(float rate)
     {
-        if(rate > 0)
+        var particles = GameManager.Instance.Player.InAnimatedMode ? PeeParticles2 : PeeParticles;
+        if (rate > 0)
         {
-            PeeParticles.Play();
+            particles.Play();
         }
         else
         {
-            PeeParticles.Stop();
+            particles.Stop();
         }
-        var emission = PeeParticles.emission;
+
+        var emission = particles.emission;
         emission.rateOverTime = rate;
     }
 }

@@ -8,6 +8,9 @@ public class RagdollMovement : MonoBehaviour
 {
     public BodyPart[] BodyParts;
     public Animator Animator;
+    public Transform AnimatedBodyTransform;
+    public Transform AnimatedBodyHairDetailTransform;
+    public Transform PhysicalBodyTransform;
     public Transform PositionMarker;
     public float UprightTorque = 10000f;
     public float RotationTorque = 500f;
@@ -29,8 +32,9 @@ public class RagdollMovement : MonoBehaviour
     private float _balanceMultiplier = 1f;
     private Tween _enableBalanceTween;
     private float _dizziness = 0f;
+    private bool _inAnimatedMode = false;
 
-
+    public bool InAnimatedMode => _inAnimatedMode;
     private void Awake()
     {
         CollisionDetector.OnRagdollCollisionEnter += OnRagdollCollisionEnter;
@@ -45,6 +49,15 @@ public class RagdollMovement : MonoBehaviour
         }
 
         _currentDirection = this.transform.forward;
+        _inAnimatedMode = false;
+    }
+
+    public void GoToAnimatedMode()
+    {
+        AnimatedBodyTransform.gameObject.SetActive(true);
+        AnimatedBodyHairDetailTransform.gameObject.SetActive(true);
+        PhysicalBodyTransform.gameObject.SetActive(false);
+        _inAnimatedMode = true;
     }
 
     private void OnDestroy()
