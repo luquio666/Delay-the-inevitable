@@ -54,11 +54,18 @@ public class RagdollMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!_isBalancing)
+        _dizziness = Mathf.PerlinNoise(Time.time * DizzinessFrecuency, 0f) - 0.5f;
+        if (!_isBalancing || GameManager.Instance.GameOver)
         {
             return;
         }
 
+        HandleInputs();
+        Animator.SetFloat("Speed", _normalizedSpeed);
+    }
+
+    private void HandleInputs()
+    {
         if (Input.GetKey(KeyCode.W))
         {
             _normalizedSpeed = Mathf.Min(_normalizedSpeed + 1 / AccelerationDuration * Time.deltaTime, 1f);
@@ -67,17 +74,14 @@ public class RagdollMovement : MonoBehaviour
         {
             _normalizedSpeed = Mathf.Max(_normalizedSpeed - 1 / AccelerationDuration * Time.deltaTime, 0f);
         }
-
-        Animator.SetFloat("Speed", _normalizedSpeed);
-
+        
         float horizontalAxis = 0f;
         if (Input.GetKey(KeyCode.A)) horizontalAxis -= 1f;
         if (Input.GetKey(KeyCode.D)) horizontalAxis += 1f;
         
-        _dizziness = Mathf.PerlinNoise(Time.time * DizzinessFrecuency, 0f) - 0.5f;
         float finalDizziness = DizzinessIntensity * _dizziness;
         horizontalAxis += finalDizziness;
-        
+
         _currentDirection = Quaternion.AngleAxis(horizontalAxis * RotationSpeed * Time.deltaTime, Vector3.up) *
                             _currentDirection;
     }
@@ -171,8 +175,10 @@ public class RagdollMovement : MonoBehaviour
 
         public void Balance(float uprightTorque, float rotationTorque, Vector3 targetDirection)
         {
+            Vector3 balanceVector = GameManager.Instance.GameOver ? -Rigidbody.transform.forward : Vector3.up;
+            
             var rot = Quaternion.FromToRotation(Rigidbody.transform.up,
-                Vector3.up).normalized;
+                balanceVector).normalized;
 
             Rigidbody.AddTorque(new Vector3(rot.x, rot.y, rot.z)
                                 * uprightTorque);

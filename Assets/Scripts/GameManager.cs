@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     public PeeMeterController PeeMeter;
     public Vector3 PlayerPosition => Player.PositionMarker.position;
     private bool _gameover = false;
+    
+    public bool GameOver => _gameover;
 
     private void OnEnable()
     {

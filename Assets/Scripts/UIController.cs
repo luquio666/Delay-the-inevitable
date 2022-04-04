@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +14,7 @@ public class UIController : MonoBehaviour
     public GameObject GameoverScreen;
     public Button Retry;
     public Button NoWay;
-    [Space]
-    public Animator HintsLabelAnim;
+    [Space] public Animator HintsLabelAnim;
     public Animator HeadBubbleLabelAnim;
 
     private void Awake()
@@ -47,18 +47,18 @@ public class UIController : MonoBehaviour
     }
 
     private void ButtonRetry()
-    { 
+    {
         // todo: restart game
     }
 
     private void ButtonNoWay()
-    { 
+    {
         // todo: go to main menu
     }
 
     private void SendHintsMsg(string msg)
     {
-        if(!HintsGO.activeSelf) HintsGO.SetActive(true);
+        if (!HintsGO.activeSelf) HintsGO.SetActive(true);
         HintsLabel.text = msg;
     }
 
@@ -84,6 +84,6 @@ public class UIController : MonoBehaviour
 
     private void GameOver()
     {
-        GameoverScreen.SetActive(true);
+        DOVirtual.DelayedCall(3, () => GameoverScreen.SetActive(true));
     }
 }
