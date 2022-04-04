@@ -7,7 +7,11 @@ public class GameManager : MonoBehaviour
 {
     private Queue<GameRequirement> _gameRequirements = new Queue<GameRequirement>(new List<GameRequirement>()
     {
-        new GameRequirementDoor("Bathroom", DoorTriggerActions.CLOSE_DOOR, ()=> GameEvents.SendHintsMsg("Bathroom is occupied!! No!! I need to go to the one in my room!!")),
+        new GameRequirementDoor("Bathroom", DoorTriggerActions.CLOSE_DOOR, ()=>
+        {
+            GameEvents.SendHintsMsg("Bathroom is occupied!! No!! I need to go to the one in my room!!");
+            GameEvents.UnlockDoor("Baby'sRoom");
+        }),
         new GameRequirementDoor("Baby'sRoom", DoorTriggerActions.OPEN_DOOR, ()=> GameEvents.ClearHintsMsg()),
         new GameRequirementArea("Baby'sToilet", AreaTriggerActions.ENTER, () =>
         {
@@ -62,6 +66,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GameEvents.SendHintsMsg("I need to make pee!!!!!!");
+        GameEvents.LockDoor("Baby'sRoom");
         GameEvents.LockDoor("ParentsRoom");
         GetNextGameRequirement();
         PeeMeter.Initialize();
