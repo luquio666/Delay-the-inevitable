@@ -7,11 +7,15 @@ public class GameManager : MonoBehaviour
 {
     private Queue<GameRequirement> _gameRequirements = new Queue<GameRequirement>(new List<GameRequirement>()
     {
-        new GameRequirementDoor("Bathroom", DoorTriggerActions.CLOSE_DOOR),
-        new GameRequirementDoor("Baby'sRoom", DoorTriggerActions.OPEN_DOOR),
-        new GameRequirementArea("Baby'sToilet", AreaTriggerActions.ENTER, () => GameEvents.UnlockDoor("ParentsRoom")),
-        new GameRequirementDoor("ParentsRoom", DoorTriggerActions.OPEN_DOOR),
-        new GameRequirementStoolToPee(StoolToPeeActions.PICK_UP),
+        new GameRequirementDoor("Bathroom", DoorTriggerActions.CLOSE_DOOR, ()=> GameEvents.SendHintsMsg("Bathroom is occupied!! No!! I need to go to the one in my room!!")),
+        new GameRequirementDoor("Baby'sRoom", DoorTriggerActions.OPEN_DOOR, ()=> GameEvents.ClearHintsMsg()),
+        new GameRequirementArea("Baby'sToilet", AreaTriggerActions.ENTER, () =>
+        {
+            GameEvents.UnlockDoor("ParentsRoom");
+            GameEvents.SendHintsMsg("Oh no!! My toilet stool is not here!! I need to find it!! QUICK!!");
+        }),
+        new GameRequirementDoor("ParentsRoom", DoorTriggerActions.OPEN_DOOR, ()=>  GameEvents.SendHintsMsg("HERE IT IS!!!")),
+        new GameRequirementStoolToPee(StoolToPeeActions.PICK_UP, ()=>  GameEvents.SendHintsMsg("YES YES YES!!!")),
         new GameRequirementStoolToPee(StoolToPeeActions.PLACE_IN_TARGET)
     });
 

@@ -23,6 +23,7 @@ public class DoorTrigger : MonoBehaviour
 
     private bool _actionAlreadyTriggered;
     private bool _buttonAlreadyPressed;
+    private bool _inside = false;
 
     private void OnEnable()
     {
@@ -54,9 +55,19 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(GameConstants.PLAYER_TAG) && !_actionAlreadyTriggered)
+        if (other.CompareTag(GameConstants.PLAYER_TAG))
         {
-            TriggerActions();
+            if (!_actionAlreadyTriggered)
+                TriggerActions();
+            _inside = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(GameConstants.PLAYER_TAG))
+        {
+            _inside = false;
         }
     }
 
@@ -67,39 +78,44 @@ public class DoorTrigger : MonoBehaviour
 
     private void TriggerActionsInternal(DoorTriggerActions action)
     {
-        _actionAlreadyTriggered = true;
         switch (action)
         {
             case DoorTriggerActions.NOTHING:
                 break;
             case DoorTriggerActions.OPEN_DOOR:
-                if (Locked)
-                {
-                    GameEvents.PlaySound("hit door", false);
-                    break;
-                }
+                _actionAlreadyTriggered = true;
                 DoorAnimation.Play(DoorAnimName, 0, 0f);
                 GameEvents.PlaySound("door opening", false);
                 break;
             case DoorTriggerActions.CLOSE_DOOR:
+                _actionAlreadyTriggered = true;
                 DoorAnimation.Play(DoorAnimName, 0, 0f);
                 GameEvents.PlaySound("door opening 2", false);
                 break;
             case DoorTriggerActions.PRESS_F_TO_OPEN:
                 if (Locked) break;
-                if(!_buttonAlreadyPressed)
+                _actionAlreadyTriggered = true;
+                if (!_buttonAlreadyPressed)
                     StartCoroutine(HideHeadBubbleCo());
                 break;
             default:
                 break;
         }
+
         OnDoorTriggerAction?.Invoke(action, Id);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !_buttonAlreadyPressed && DoorTriggerActions.PRESS_F_TO_OPEN == DoorAction)
+        if (_inside && Input.GetKeyDown(KeyCode.F) && !_buttonAlreadyPressed &&
+            DoorTriggerActions.PRESS_F_TO_OPEN == DoorAction)
         {
+            if (Locked)
+            {
+                GameEvents.PlaySound("hit door", false);
+                return;
+            }
+
             _buttonAlreadyPressed = true;
             TriggerActionsInternal(DoorTriggerActions.OPEN_DOOR);
         }

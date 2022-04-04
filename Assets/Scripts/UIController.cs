@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public GameObject HintsGO;
     public TextMeshProUGUI HintsLabel;
     public TextMeshProUGUI HeadBubbleLabel;
     public Image PeeFill;
@@ -57,6 +58,7 @@ public class UIController : MonoBehaviour
 
     private void SendHintsMsg(string msg)
     {
+        if(!HintsGO.activeSelf) HintsGO.SetActive(true);
         HintsLabel.text = msg;
     }
 
@@ -69,6 +71,7 @@ public class UIController : MonoBehaviour
 
     private void ClearHintsMsg()
     {
+        HintsGO.SetActive(false);
         HintsLabel.text = string.Empty;
     }
 

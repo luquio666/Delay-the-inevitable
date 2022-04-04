@@ -1122,6 +1122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be40939f45af65c4b9cb36e8486f21b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HintsGO: {fileID: 4474244865293281597}
   HintsLabel: {fileID: 8102540847836390082}
   HeadBubbleLabel: {fileID: 5320034542766746841}
   PeeFill: {fileID: 3990952175782074413}

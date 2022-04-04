@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  PeeMeter:
+    StartingFillSpeed: 0.01
+    FillAcceleration: 0.002
+    PeeHoldDelta: 0.05
+    _currentValue: 0
