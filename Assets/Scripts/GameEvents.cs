@@ -16,6 +16,12 @@ public static class GameEvents {
         OnStopSound?.Invoke(soundName);
     }
 
+    public static Action OnStopAllSounds;
+    public static void StopAllSounds()
+    {
+        OnStopAllSounds?.Invoke();
+    }
+
     public static Action<string> OnChangeObjectState;
     public static void ChangeObjectState(string id)
     {

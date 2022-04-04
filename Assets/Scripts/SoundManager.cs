@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour {
     {
 		GameEvents.OnPlaySound += PlaySound;
 		GameEvents.OnStopSound += StopSound;
+		GameEvents.OnStopAllSounds += StopAllSounds;
 
 		ConfigSounds();
 	}
@@ -17,6 +18,7 @@ public class SoundManager : MonoBehaviour {
 	{
 		GameEvents.OnPlaySound -= PlaySound;
 		GameEvents.OnStopSound -= StopSound;
+		GameEvents.OnStopAllSounds -= StopAllSounds;
 	}
 
 
@@ -36,6 +38,14 @@ public class SoundManager : MonoBehaviour {
 	{
 		var sound = FindAudio(soundName);
 		sound.Stop();
+	}
+	
+	private void StopAllSounds()
+	{
+		foreach (var sound in Sounds)		
+		{
+			sound.Stop();
+		}
 	}
 
 	private AudioSource FindAudio(string soundName)

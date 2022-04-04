@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.Collections;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class PeeMeterController
     private bool _initialized = false;
     private float _currentPeeParticlesRatePerSecond = 0;
     private PeeParticlesController _peeParticlesController;
+    private float _lastPeeTime = 0;
 
     public void Initialize()
     {
@@ -22,6 +24,7 @@ public class PeeMeterController
         _currentFillSpeed = StartingFillSpeed;
         _peeParticlesController = GameManager.Instance.Player.GetComponent<PeeParticlesController>();
         _peeParticlesController.SetRateOverTime(0);
+        DOVirtual.DelayedCall(0.5f, ()=> GameEvents.PlaySound("easy baby"));
         _initialized = true;
     }
 
@@ -42,6 +45,8 @@ public class PeeMeterController
             {
                 _currentPeeParticlesRatePerSecond = 100;
                 _peeParticlesController.SetRateOverTime(_currentPeeParticlesRatePerSecond);
+                GameEvents.StopAllSounds();
+                GameEvents.PlaySound("baby crying");
             }
         }
         else if (_currentValue > 0.7f)
@@ -50,6 +55,7 @@ public class PeeMeterController
             {
                 _currentPeeParticlesRatePerSecond = 4;
                 _peeParticlesController.SetRateOverTime(_currentPeeParticlesRatePerSecond);
+                TryPlaySound("hard baby" + Random.Range(1, 5));
             }
         }
         else if (_currentValue > 0.5f)
@@ -58,12 +64,23 @@ public class PeeMeterController
             {
                 _currentPeeParticlesRatePerSecond = 2;
                 _peeParticlesController.SetRateOverTime(_currentPeeParticlesRatePerSecond);
+                TryPlaySound("medium baby");
             }
         }
         else if (_currentPeeParticlesRatePerSecond > 0)
         {
             _currentPeeParticlesRatePerSecond = 0;
             _peeParticlesController.SetRateOverTime(_currentPeeParticlesRatePerSecond);
+            TryPlaySound("easy baby");
+        }
+    }
+
+    private void TryPlaySound(string soundName)
+    {
+        if (Time.time - _lastPeeTime > 4.5f)
+        {
+            _lastPeeTime = Time.time;
+            GameEvents.PlaySound(soundName);
         }
     }
 
